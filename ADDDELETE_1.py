@@ -141,7 +141,7 @@ def get_last_unique_id(table_name):
     if table_name=="prodet":
         query = '''SELECT "UniqueID" FROM public."prodet" ORDER BY "UniqueID" DESC LIMIT 1;'''
     else:
-        query = '''SELECT "UniqueID" FROM public."Addln" ORDER BY "UniqueID" DESC LIMIT 1;'''
+        query = '''SELECT "UniqueID" FROM public."addln" ORDER BY "UniqueID" DESC LIMIT 1;'''
     cursor.execute(query)
     last_id = cursor.fetchone()
     cursor.close()
@@ -748,7 +748,7 @@ def add_new_product(n_clicks, sr_no, product_name, processing_date, delivery_dat
                 port=db_port
             )
             cursor = conn.cursor()
-            cursor.execute("SELECT COUNT(*) FROM public.\"Addln\"")
+            cursor.execute("SELECT COUNT(*) FROM public.\"addln\"")
             addln_count = cursor.fetchone()[0]
 
             if addln_count == 0:
@@ -756,7 +756,7 @@ def add_new_product(n_clicks, sr_no, product_name, processing_date, delivery_dat
                 last_id = get_last_unique_id("prodet")
             else:
                 # Otherwise, get last ID from "Addln"
-                last_id = get_last_unique_id("Addln")
+                last_id = get_last_unique_id("addln")
 
             new_id = last_id + 1  # Increment the last ID by 1
 
@@ -772,7 +772,7 @@ def add_new_product(n_clicks, sr_no, product_name, processing_date, delivery_dat
             )
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO public."Addln" ( "UniqueID","Sr. No", "Product Name", "Order Processing Date", \
+            cursor.execute('INSERT INTO public."addln" ( "UniqueID","Sr. No", "Product Name", "Order Processing Date", \
                             "Promised Delivery Date", "Quantity Required", "Components", "Operation", \
                             "Process Type", "Machine Number", "Run Time (min/1000)", "Cycle Time (seconds)", \
                             "Setup time (seconds)") VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
@@ -1428,7 +1428,7 @@ def fetch_data_runtime():
             host=db_host,
             port=db_port
         )
-        query = '''SELECT * FROM public."RunTime";'''
+        query = '''SELECT * FROM public."runtime";'''
         with conn.cursor() as cursor:
             cursor.execute(query)
             run_time = cursor.fetchone()[0]
@@ -1460,7 +1460,7 @@ def update_data_runtime():
             port=db_port
         )
         # Set the runtime data to NULL
-        update_query = '''UPDATE public."RunTime" SET "Run_time" = NULL;'''
+        update_query = '''UPDATE public."runtime" SET "Run_time" = NULL;'''
             
         with conn.cursor() as cursor:
             cursor.execute(update_query)
