@@ -61,7 +61,7 @@ def update_runtime(run_time):
             host="localhost",
             port="5432"
         )
-        update_query = '''UPDATE public."RunTime" SET "Run_time" = %s;'''
+        update_query = '''UPDATE public."runtime" SET "Run_time" = %s;'''
         with conn.cursor() as cursor:
             cursor.execute(update_query,(run_time,))
             conn.commit()
@@ -88,7 +88,7 @@ def fetch_data():
         # Fetch data from the 'Addln' table
         query_addln = sql.SQL('SELECT * FROM {schema}.{table} ORDER BY {order_col}').format(
             schema=sql.Identifier('public'),
-            table=sql.Identifier('Addln'),
+            table=sql.Identifier('addln'),
             order_col=sql.Identifier('UniqueID')
         )
         addln_df = pd.read_sql(query_addln.as_string(conn), conn)
@@ -109,7 +109,7 @@ def fetch_data():
             # Delete data from 'Addln' table
             cursor.execute(sql.SQL('TRUNCATE TABLE {schema}.{table}').format(
                 schema=sql.Identifier('public'),
-                table=sql.Identifier('Addln')
+                table=sql.Identifier('addln')
             ))
             conn.commit()
             print("Addln table data deleted.")
