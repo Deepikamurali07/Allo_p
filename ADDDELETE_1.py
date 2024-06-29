@@ -1460,7 +1460,7 @@ def update_data_runtime():
             port=db_port
         )
         # Set the runtime data to NULL
-        update_query = '''UPDATE public."runtime" SET "Run_time" = NULL;'''
+        update_query = '''UPDATE public."runtime" SET "run_time" = NULL;'''
             
         with conn.cursor() as cursor:
             cursor.execute(update_query)
